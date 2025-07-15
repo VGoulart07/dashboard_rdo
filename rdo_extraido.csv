@@ -1,0 +1,102 @@
+Data,Equipe,Manutenção Corretiva,Manutenção Preventiva
+01/07/2025,Arthur; Ailton.,,
+02/07/2025,Paulo Geraldo / Paulo Silva /Arthur ; Airton,"*Atividade* Trackers parados por falhas - retornaram a operação após atuação.
+* PCS1.1 TR97 - TCU em modo fact; Tracker parado (error no inject) 
+Atividade: Abertura de chamados a garantia Soltec: Todas falhas recorrentes diariamente em TCUs, para tratativa com a fabricante","*Local* PCS2.1
+*Atividade* Plano - PCS/SKID Check-list Quinzenal (concluído).
+* PCS2.1 Plano - PCS/SKID Check-list Mensal (concluído).
+*Local:* PCS2.2 
+*Atividade:* Plano - PCS / SKID Check-list Quinzenal (concluído).
+* PCS2.2 Plano - PCS / SKID Check-list Mensal (concluído).
+*Local:* Coromandel 2 ESTM-1
+*Atividade* Plano - Estação Meteorologica Check-list Mensal (concluído).
+*Outras Atividades*
+* Reunião para alinhamento de planos de manutenção Sismetro + Pendências Sungrow/Soltec (Fernando D.)
+* Preenchimento de documentações.
+* Reunião de Equipe técnica SISMETRO"
+03/07/2025,Arthur; Ailton. Paulo/Paulo,"*Local:* COR1 e COR2 
+*Atividade:* Trackers parados por falhas, voltaram a operar após atuação. 
+* PCS1.1 TR97 - TCU em modo fact após falha; Realizado inject (operando normalmente)
+* PCS2.2 TR24 - TCU em modo fact após falha; Realizado inject (operando normalmente)
+*Local* PCS2.2 TR24
+*Atividade:* Tracker parado por falha de motor - após falha persistir foi realizado substituição de motor avariado - Logo após, tracker operou normalmente sem falhas (concluído)","*Local* PCS1.1 SKID
+*Atividade* Plano Skid - Checklist MENSAL/QUINZENAL (concluído)
+*Local* PCS1.2 SKID
+*Atividade* Plano Skid - Checklist MENSAL/QUINZENAL (concluído)
+Local PCS2.3
+Atividade Plano - PCS / SKID Check-list Quinzenal (concluído).
+* PCS2.3  Plano - PCS / SKID Check-list Mensal (concluído).
+Local: PCS2.4
+Atividade: Plano - PCS / SKID Check-list Quinzenal (concluído).
+* PCS2.4 Plano - PCS / SKID Check-list Mensal (concluído).
+* PCS2.5 Plano - PCS / SKID Check-list Quinzenal (concluído).
+* PCS2.5 Plano - PCS / SKID Check-list Mensal (concluído)."
+04/07/2025,Arthur; Ailton. Paulo Geraldo / Paulo Silva.,"*Local:* COR1 e COR2 
+*Atividade:* Trackers parados por falhas, voltaram a operar após atuação.","*Local* PCS1.1 INV1
+*Atividade* Plano Combiner Box - verificações de performance. (em andamento)
+Local: PCS2.1 INV-1 e INV-2
+Atividade Plano Combiner Box - verificações de performance. (em andamento).
+Apoio: André e Arenilson."
+05/07/2025,Paulo Geraldo / Paulo Silva.,,
+06/07/2025,Paulo Geraldo / Paulo Silva.,,
+07/07/2025,Arthur; Ailton.,"*Local:* COR1 e COR2 
+*Atividade:* Trackers parados por falhas, voltaram a operar após atuação.","*Local* PCS1.1 INV1
+*Atividade* Plano Combiner Box - verificações de performance. (concluído)
+*Local* PCS1.1 INV2
+*Atividade* Plano Combiner Box - verificações de performance. (em andamento)
+*Local* PCS1.3
+*Atividade* Plano Skid - check list Mensal / Quinzenal  (concluído)
+
+*Local* PCS2.1 INV2
+*Atividade* Plano Combiner Box - verificações de performance (concluído) - *André; Arenilson*"
+08/07/2025,Arthur; Ailton.,"*Local:* COR1 e COR2 
+*Atividade:* Trackers parados por falhas, voltaram a operar após atuação. 
+* Trackers que perderam a comunicação após reset
+* PCS2.4 TR121 (Realizado Inject; em operação)
+* PCS2.5 TR47 (Realizado Inject; em operação)","*Local* PCS1.1 INV2
+*Atividade* Plano Combiner Box - verificações de performance. (concluído)
+*Local* PCS1.2 INV1
+*Atividade* Plano Combiner Box - verificações de performance. (em andamento)
+*Local* PCS1.4
+*Atividade* Plano Skid - check list Mensal / Quinzenal  (concluído)
+*Local* PCS2.2 INV2
+*Atividade* Plano Combiner Box - verificações de performance (em andamento) - *André; Arenilson*"
+09/07/2025,Arthur; Ailton.,"*Local:* PCS1.2.1 CB9 STR8
+*Atividade:* Identificado em manutenção preventiva, string zerada 0A; conectores MC4 danificados; Após substituição, voltou a operar 100%. 
+Local: PCS2.1 CBX-8 STR24
+Atividade: Identificado em manutenção preventiva, string zerada (Cabo PV solar rompido). Foi feito a substituição, combiner operando normalmente.
+Local: PCS2.1 TR63
+Atividade: Reparo no eixo cardan avariado. Tracker operando normalmente.","*Local* PCS1.2 INV1
+*Atividade* Plano Combiner Box - verificações de performance. (concluído)
+*Local* PCS1.5
+*Atividade* Plano Skid - check list Mensal / Quinzenal  (concluído)
+Local PCS2.1 INV1
+Atividade Plano Combiner Box - verificações de performance. (em andamento)."
+10/07/2025,Paulo Geraldo / Paulo Silva,"*Local:* PCS2.1 INV-2
+*Atividade:* Inversor parou por falha (Proteção PDP). Foi identificado mau contato nas conexões de cabos dos Módulos de Fases, após correção de e verificações o inversor partiu normalmente.","*Local* PCS2.1 INV1
+*Atividade* Plano Combiner Box - verificações de performance. (Concluído).
+*Local:* PCS2.2 INV-2 
+*Atividade:* Plano Combiner Box - Verificaçãeos de Performance (em andamento)."
+11/07/2025,Paulo Geraldo / Paulo Silva.,"*Local* COR1 & COR2
+*Atividade* Trackers parados por falhas - retornaram a operação após atuação.","*Local* PCS2.1
+*Atividade* Plano - PCS / SKID Check-list Mensal  (concluído).
+*Local:* PCS2.2 
+*Atividade :* Plano - PCS / SKID Check-list Mensal (concluído).
+*Local:* COR2 ESMT-1 
+*Atividade:* Plano Estação Meteorológica Check-list Mensal (concluído).
+
+*Outras Atividades*
+* Preenchimento de documentação 
+* Encerramento de ordens de serviços."
+12/07/2025,Paulo Geraldo / Ailton.,,
+13/07/2025,Paulo Geraldo / Ailton.,,
+14/07/2025,Paulo Geraldo / Paulo Silva.,"*Local* COR1 & COR2
+*Atividade* Atuação em trackers parados por falhas - retornou a operação após correção.","*Local:* PCS2.4  INV-1 
+*Atividade:* Plano Inversor Central - mv Station - Check-list Semestral / Trimestral (concluído).
+*Local:* PCS2.4  INV-2 
+*Atividade:* Plano Inversor Central - mv Station - Check-list Semestral / Trimestral (concluído). 
+
+*Outras Atividades*
+* Configuração de Ventilador (Inversor) FAN1 para FAN2.
+* Preenchimento de documentações.
+* Encerramento de ordens de serviços."

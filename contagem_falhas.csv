@@ -1,0 +1,20 @@
+Descrição,Quantidade
+01 a 14:,
+Soltec,
+NCU perdeu comunicação (10 min) – x,
+Tracker parado por falha Motor_baterias_comlost_tracker no limite - (30 min por parada) x 30,
+Inject TCU modo fact(24 horas),4.0
+TCU em curto (3 horas) + inject – x,
+Eixo Cardan (50 min),1.0
+Falha de Motor TCU (3 horas),1.0
+Sungrow,
+Falha de Ventilação no inversor (limitação de potência),1.0
+Falha de Impedancia (ISOLAÇÃO) (1 hora),1.0
+PV,
+Substituição de circuitos das Strings (3 horas),0.0
+Fusível rompido na string (5 min) (fora o período em que o circuito estava aberto),1.0
+Cabo solar danificado ( 48 horas),3.0
+fusível 400A DC atuado (30 min),1.0
+Conector MC4 da String danificado (20min),1.0
+Módulos,
+junction box danificada,150.0
