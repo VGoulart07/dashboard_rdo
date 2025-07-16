@@ -3,51 +3,84 @@ import streamlit as st
 import datetime
 import plotly.express as px
 
-def separar_local_atividade(texto):
-    if pd.isna(texto) or texto.strip() == "":
-        return "", ""
-    partes = texto.split('\n', 1)
-    local = partes[0].strip()
-    atividade = partes[1].strip() if len(partes) > 1 else ""
-    return local, atividade
+def carregar_dados():
+    df_rdo = pd.read_csv("rdo_completo.csv", encoding='utf-8')
+    df_falhas = pd.read_csv("contagem_falhas.csv", encoding='utf-8')
 
-def carregar_dados(caminho_rdo, caminho_contagem):
-    df_rdo = pd.read_csv(caminho_rdo, parse_dates=['Data'], dayfirst=True, encoding='utf-8')
-    df_contagem = pd.read_csv(caminho_contagem, encoding='utf-8')
+    # Garantir que 'Data' seja do tipo datetime.date
+    df_rdo['Data'] = pd.to_datetime(df_rdo['Data'], errors='coerce').dt.date
+    return df_rdo, df_falhas
 
-    df_rdo.rename(columns=lambda x: x.strip(), inplace=True)
-    df_contagem.rename(columns=lambda x: x.strip(), inplace=True)
+def exibir_rdo_por_dia(df_filtrado):
+    dias_unicos = sorted(df_filtrado['Data'].unique())
+    for dia in dias_unicos:
+        st.markdown(f"### 📅 {dia.strftime('%d/%m/%Y')}")
+        registros = df_filtrado[df_filtrado['Data'] == dia]
 
-    df_rdo['Data'] = df_rdo['Data'].dt.date
+        for _, row in registros.iterrows():
+            equipe = row.get('Equipe', '')
+            st.markdown(f"**👷 Equipe:** {equipe}")
 
-    if 'Manutenção Corretiva' in df_rdo.columns:
-        df_rdo[['Local Corretiva', 'Atividade Corretiva']] = df_rdo['Manutenção Corretiva'].apply(
-            lambda x: pd.Series(separar_local_atividade(x))
+            if pd.notna(row.get('Manutenção Corretiva')):
+                st.markdown("**🔧 Manutenção Corretiva:**")
+                st.markdown(row['Manutenção Corretiva'])
+
+            if pd.notna(row.get('Manutenção Preventiva')):
+                st.markdown("**🛠️ Manutenção Preventiva:**")
+                st.markdown(row['Manutenção Preventiva'])
+
+            if pd.notna(row.get('Outras Atividades')):
+                st.markdown("**📌 Outras Atividades:**")
+                st.markdown(row['Outras Atividades'])
+
+            if pd.notna(row.get('Status UFV')):
+                st.markdown("**✅ Status UFV:**")
+                st.markdown(row['Status UFV'])
+
+            st.markdown("---")
+
+def exibir_grafico_falhas(df_falhas):
+    st.subheader("📉 Falhas por Tipo (Total de Horas)")
+
+    if {'Descrição', 'Quantidade', 'Horas por Evento'}.issubset(df_falhas.columns):
+        df_falhas['Quantidade'] = pd.to_numeric(df_falhas['Quantidade'], errors='coerce').fillna(0)
+        df_falhas['Horas por Evento'] = pd.to_numeric(df_falhas['Horas por Evento'], errors='coerce').fillna(0)
+
+        df_falhas['Horas Totais'] = df_falhas['Quantidade'] * df_falhas['Horas por Evento']
+        df_falhas_agrupado = df_falhas.groupby('Descrição', as_index=False)['Horas Totais'].sum()
+        df_falhas_agrupado = df_falhas_agrupado.sort_values(by='Horas Totais', ascending=True)
+
+        fig = px.bar(
+            df_falhas_agrupado,
+            x='Horas Totais',
+            y='Descrição',
+            orientation='h',
+            text='Horas Totais',
+            template='plotly_dark',
+            title='⏱️ Tempo Total de Interrupção por Tipo de Falha',
+            labels={'Horas Totais': 'Horas', 'Descrição': 'Tipo de Falha'}
         )
-    else:
-        df_rdo['Local Corretiva'] = ""
-        df_rdo['Atividade Corretiva'] = ""
 
-    if 'Manutenção Preventiva' in df_rdo.columns:
-        df_rdo[['Local Preventiva', 'Atividade Preventiva']] = df_rdo['Manutenção Preventiva'].apply(
-            lambda x: pd.Series(separar_local_atividade(x))
+        fig.update_traces(marker_color='cyan', texttemplate='%{text:.2f}h', textposition='outside')
+        fig.update_layout(
+            plot_bgcolor='black',
+            paper_bgcolor='black',
+            font_color='white',
+            margin=dict(l=120, r=30, t=60, b=30),
+            height=600
         )
-    else:
-        df_rdo['Local Preventiva'] = ""
-        df_rdo['Atividade Preventiva'] = ""
 
-    return df_rdo, df_contagem
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.warning("⚠️ O arquivo contagem_falhas.csv precisa conter as colunas: 'Descrição', 'Quantidade' e 'Horas por Evento'.")
 
 def main():
     st.set_page_config(layout="wide")
-    st.title("📊 Dashboard RDO - Usina Solar UFV Coromandel")
+    st.title("📊 Dashboard RDO - UFV Coromandel")
 
-    # Caminhos relativos para funcionar no Streamlit Cloud
-    caminho_rdo = "rdo_extraido.csv"
-    caminho_contagem = "contagem_falhas.csv"
+    df_rdo, df_falhas = carregar_dados()
 
-    df_rdo, df_contagem = carregar_dados(caminho_rdo, caminho_contagem)
-
+    # Filtro de período
     data_selecionada = st.date_input(
         "📅 Selecione o período para análise",
         value=(datetime.date(2025, 7, 1), datetime.date(2025, 7, 14))
@@ -60,68 +93,11 @@ def main():
 
     df_filtrado = df_rdo[(df_rdo['Data'] >= inicio) & (df_rdo['Data'] <= fim)]
 
-    st.subheader("📌 Relatório diário consolidado")
-
-    for data, grupo in df_filtrado.groupby('Data'):
-        st.markdown(f"### 📅 {data.strftime('%d/%m/%Y')}")
-        equipe = grupo['Equipe'].iloc[0] if 'Equipe' in grupo.columns else ""
-        st.markdown(f"👷 Equipe: **{equipe}**")
-
-        col1, col2 = st.columns(2)
-
-        with col1:
-            st.markdown("🔧 **Manutenção Corretiva**")
-            for local, atividade in zip(grupo['Local Corretiva'], grupo['Atividade Corretiva']):
-                if atividade:
-                    st.markdown(f"- **{local}**: {atividade}")
-
-        with col2:
-            st.markdown("🛠️ **Manutenção Preventiva**")
-            for local, atividade in zip(grupo['Local Preventiva'], grupo['Atividade Preventiva']):
-                if atividade:
-                    st.markdown(f"- **{local}**: {atividade}")
-
-        outras_colunas = [col for col in grupo.columns if "Outras" in col or "Status" in col]
-        for col in outras_colunas:
-            st.markdown(f"📎 **{col}**")
-            st.text(grupo[col].iloc[0])
-
-    st.divider()
-    st.subheader("📉 Gráfico de Falhas por Tipo")
-
-    if 'Descrição' in df_contagem.columns and 'Quantidade' in df_contagem.columns:
-        df_contagem = df_contagem.dropna(subset=['Descrição', 'Quantidade'])
-        df_contagem['Quantidade'] = pd.to_numeric(df_contagem['Quantidade'], errors='coerce').fillna(0)
-
-        # Estimar horas associadas (baseado no padrão de descrição)
-        def estimar_horas(desc):
-            import re
-            match = re.search(r'(\d+)\s*(minutos|min|hora|horas)', desc.lower())
-            if match:
-                val = int(match.group(1))
-                unidade = match.group(2)
-                if 'hora' in unidade:
-                    return val
-                elif 'min' in unidade:
-                    return val / 60
-            return 0
-
-        df_contagem['Horas Estimadas'] = df_contagem['Descrição'].apply(estimar_horas)
-
-        fig = px.bar(
-            df_contagem,
-            x='Descrição',
-            y='Quantidade',
-            color='Horas Estimadas',
-            hover_data=['Horas Estimadas'],
-            title="Falhas registradas por tipo",
-            color_continuous_scale='turbo',
-            template='plotly_dark'
-        )
-        fig.update_layout(xaxis_title="Tipo de Falha", yaxis_title="Ocorrências", height=500)
-        st.plotly_chart(fig, use_container_width=True)
+    if df_filtrado.empty:
+        st.warning("⚠️ Nenhum dado encontrado para o período selecionado.")
     else:
-        st.warning("⚠️ Arquivo de contagem de falhas sem as colunas esperadas.")
+        exibir_rdo_por_dia(df_filtrado)
+        exibir_grafico_falhas(df_falhas)
 
 if __name__ == "__main__":
     main()
